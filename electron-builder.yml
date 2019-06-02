@@ -1,0 +1,12 @@
+
+appId: io.josephpei.uv2ray
+productName: uv2ray
+copyright: Copyright © year Joseph Pei <josephpei@gmail.com>
+linux:
+  synopsis: uv2ray
+  description: V2ray Client
+  target:
+    - AppImage
+  maintainer: Joseph Pei
+  category: Network
+

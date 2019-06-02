@@ -1,0 +1,52 @@
+@import './styles'
+@import './styles/variable'
+*
+*::before
+*::after
+  box-sizing border-box
+  user-select none
+html
+  font-size 16px
+body
+  margin 0 auto
+  padding 0
+  width 100%
+  background-color rgb(240, 240, 240)
+  color $color-content
+  font-size 12px
+  overflow hidden
+a, button, input, textarea
+  -webkit-tap-highlight-color rgba(0,0,0,0)
+p
+  margin 0
+  line-height 1.5
+code
+  margin 0 2px
+  padding 2px 4px
+  border-style solid
+  border-width 1px
+  border-radius 4px
+  &.blue
+    color $color-info
+#app
+  height 100vh
+  -webkit-overflow-scrolling touch
+  -webkit-font-smoothing antialiased
+.ivu-icon
+  font-size 14px
+.ivu-dropdown-btn-trigger
+  width 28px
+  padding-left 4px
+  padding-right @padding-left
+  border-top-left-radius 0
+  border-bottom-left-radius 0
+
+/* 滚动条 */
+::-webkit-scrollbar
+  width 6px /*滚动条的宽度*/
+  height 6px /*滚动条的高度*/
+::-webkit-scrollbar-thumb
+  background-color #b8b8b8
+  border-radius 4px
+  &:hover
+    background-color #999
