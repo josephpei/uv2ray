@@ -1,3 +1,4 @@
+import { outputJsonSync } from 'fs-extra'
 import fs from 'fs'
 import path from 'path'
 import Base64 from 'urlsafe-base64'
@@ -250,9 +251,8 @@ export function groupConfigs (configs, selectedIndex) {
  */
 export function isV2rayPathAvaliable (folderPath) {
   let v2rayFilename = isWin ? 'v2ray.exe' : 'v2ray'
-  const localPyPath = path.join(folderPath, v2rayFilename)
-  console.log(localPyPath, fs.existsSync(localPyPath))
-  return fs.existsSync(localPyPath)
+  const localV2rayPath = path.join(folderPath, v2rayFilename)
+  return fs.existsSync(localV2rayPath)
 }
 
 export function somePromise (promiseArr) {
@@ -476,5 +476,6 @@ export function v2rayConfigHandler (appConfig, v2rayConfig) {
     routing: routing,
   }
 
-  fs.writeFileSync(configFile, JSON.stringify(config))
+  outputJsonSync(configFile, config, { spaces: '\t' })
+  // fs.writeFileSync(configFile, JSON.stringify(config))
 }
