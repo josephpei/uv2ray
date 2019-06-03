@@ -1,32 +1,28 @@
 # uv2ray
 
+A Electron V2ray GUI Client
+
 Based on [electron-ssr](https://github.com/erguotou520/electron-ssr)
 
 Just for study!
 
+## Know Issue
+
+* v2ray config only support tcp / ws, need your help!
+
 ## Project setup
 ```
-yarn install
+yarn
 ```
 
 ### Compiles and hot-reloads for development
 ```
-yarn run serve
+yarn electron:serve
 ```
 
 ### Compiles and minifies for production
 ```
-yarn run build
-```
-
-### Run your tests
-```
-yarn run test
-```
-
-### Lints and fixes files
-```
-yarn run lint
+yarn electron:build
 ```
 
 ### Customize configuration
