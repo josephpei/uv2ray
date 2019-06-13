@@ -39,7 +39,7 @@ import { ipcRenderer } from 'electron'
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 import { hideWindow } from '../../ipc'
 import Config from '../../../shared/v2ray'
-import { groupConfigs } from '../../../shared/utils'
+import { groupConfigs, clone } from '../../../shared/utils'
 import { EVENT_CONFIG_COPY_CLIPBOARD } from '../../../shared/events'
 
 // 避免因上/下移动分组/配置而导致index改变后选中项不是group的问题
@@ -59,8 +59,8 @@ export default {
     }
   },
   computed: {
-    ...mapState(['appConfig', 'editingGroup']),
-    ...mapGetters(['selectedConfig']),
+    ...mapState(['appConfig', 'editingConfig', 'editingGroup']),
+    ...mapGetters(['selectedConfig', 'isEditingConfigUpdated']),
     // 配置节点
     configs () {
       if (this.appConfig && this.appConfig.configs && this.appConfig.configs.length) {
@@ -145,11 +145,11 @@ export default {
   },
   methods: {
     ...mapMutations(['setCurrentConfig', 'updateEditingGroup', 'updateView', 'resetState']),
-    ...mapActions(['updateConfigs', 'updateConfig']),
+    ...mapActions(['updateConfigs', 'updateConfig', 'updateEditingBak']),
     // 复制节点并带上title和选中参数
     cloneConfig (config, selected) {
       return {
-        title: `${config.remarks || config.server} (${config.server}:${config.server_port})`,
+        title: `${config.ps || config.add} (${config.add}:${config.port})`,
         selected,
         ...config,
       }
@@ -193,13 +193,28 @@ export default {
       hideWindow()
     },
     applyNode () {
-      const node = this.$refs.tree.getSelectedNodes()[0]
-      if (!node.children) {
-        this.updateConfig({
-          index: this.appConfig.configs.findIndex(config => config.id === node.id),
-        })
-        this.resetState()
+      if (this.editingConfig.isValid()) {
+        if (this.isEditingConfigUpdated) {
+          const copy = this.appConfig.configs.slice()
+          const index = copy.findIndex(config => config.id === this.editingConfig.id)
+          copy.splice(index, 1)
+          copy.splice(index, 0, clone(this.editingConfig))
+          this.updateEditingBak()
+          this.updateConfigs(copy)
+        } else {
+          const node = this.$refs.tree.getSelectedNodes()[0]
+          if (!node.children) {
+            this.updateConfig({
+              index: this.appConfig.configs.findIndex(config => config.id === node.id),
+            })
+            this.resetState()
+          }
+          // hideWindow()
+        }
+      } else {
+        window.alert('服务器配置信息不完整')
       }
+
     },
     // flat分组
     flatNodeGroups (groups) {
