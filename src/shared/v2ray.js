@@ -47,7 +47,7 @@ export default class Config {
   }
 
   isValid () {
-    return !!(this.add && this.port && this.id && this.aid && this.net && this.type)
+    return !!(this.add && this.port && this.uid && this.aid && this.net)
   }
 
   getV2rayLink () {

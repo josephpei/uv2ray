@@ -104,19 +104,13 @@ export default {
                           .requestSubscribeUrl(url)
                           .then(res => {
                             self.loading = false
-                            const [groupCount, groupConfigs] = isSubscribeContentValid(res)
-                            if (groupCount > 0) {
+                            const configs = isSubscribeContentValid(res)
+                            if (configs.length) {
                               const clone = self.appConfig.serverSubscribes.slice()
                               clone.splice(params.index, 1)
-                              let groups = ''
-                              let configs = []
-                              for (const groupName in groupConfigs) {
-                                groups = groups + groupName + '|'
-                                configs = configs.concat(groupConfigs[groupName])
-                              }
                               clone.splice(params.index, 0, {
                                 URL: url,
-                                Group: groups.slice(0, -1),
+                                Group: self.appConfig.serverSubscribes[params.index].URL,
                               })
                               self.updateConfig({
                                 serverSubscribes: clone,
@@ -244,7 +238,7 @@ export default {
     onCreate () {
       // this.showNewUrl = true
       const group = this.group
-      const url = this.url
+      // const url = this.url
       if (this.appConfig.serverSubscribes.every(serverSubscribe => {
         return serverSubscribe.Group !== group
       })) {
