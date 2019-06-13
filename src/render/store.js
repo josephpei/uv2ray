@@ -105,8 +105,6 @@ export default new Vuex.Store({
     // 更新应用配置
     updateConfig (state, [targetConfig, sync = false]) {
       const changed = getUpdatedKeys(state.appConfig, targetConfig)
-      console.log('fuck fuck fuck')
-      console.log(changed)
       if (changed.length) {
         const extractConfig = {}
         changed.forEach(key => {
