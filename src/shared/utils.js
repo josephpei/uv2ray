@@ -379,7 +379,9 @@ export function v2rayConfigHandler (appConfig, v2rayConfig) {
         wsSettings: {
           connectionReuse: true,
           path: null,
-          headers: null,
+          headers: {
+            Host: v2rayConfig.host
+          },
         },
       }
       break

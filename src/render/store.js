@@ -240,8 +240,11 @@ export default new Vuex.Store({
             fetch(subscribe.URL).then(res => res.text()),
           ]).then(res => {
             const configs = isSubscribeContentValid(res)
+            const group = subscribe.Group
             if (configs.length) {
-              const group = configs[0].group
+              configs.forEach(config => {
+                config.group = group
+              })
               // 更新的组下面原来的配置
               const groupedConfigs = []
               // 不在更新组里面的配置
@@ -270,6 +273,7 @@ export default new Vuex.Store({
                   'updateConfigs',
                   oldNotChangedConfigs.concat(configs).concat(notInGroupConfigs)
                 )
+                updatedCount += configs.length
               } else {
                   console.log('订阅节点并未发生变更')
               }
