@@ -378,7 +378,7 @@ export function v2rayConfigHandler (appConfig, v2rayConfig) {
         },
         wsSettings: {
           connectionReuse: true,
-          path: null,
+          path: v2rayConfig.path || '/',
           headers: {
             Host: v2rayConfig.host
           },
@@ -389,6 +389,16 @@ export function v2rayConfigHandler (appConfig, v2rayConfig) {
       streamSettings = {
         network: 'quic',
         security: v2rayConfig.tls,
+      }
+      break
+    case 'h2':
+      streamSettings = {
+        network: 'h2',
+        security: 'tls',
+        httpSettings: {
+          host: v2rayConfig.host ? v2rayConfig.host.split(',') : null,
+          path: v2rayConfig.path || '/'
+        }
       }
       break
     default:
@@ -404,9 +414,9 @@ export function v2rayConfigHandler (appConfig, v2rayConfig) {
             request: {
               version: '1.1',
               method: 'GET',
-              path: ['/'],
+              path: v2rayConfig.path ? v2rayConfig.split(',') : ['/'],
               headers: {
-                Host: [v2rayConfig.host],
+                Host: v2rayConfig.host ? v2rayConfig.host.split(',') : null,
                 'User-Agent': ['Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.75 Safari/537.36'],
                 'Accept-Encoding': ['gzip, deflate'],
                 Connection: ['keep-alive'],
