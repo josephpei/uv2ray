@@ -72,6 +72,7 @@ export function getWindow () {
 export function showWindow () {
   if (mainWindow) {
     mainWindow.show()
+    mainWindow.focus()
   }
 }
 
