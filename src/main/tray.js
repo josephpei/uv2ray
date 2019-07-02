@@ -30,7 +30,7 @@ function generateConfigSubmenus (configs, selectedIndex) {
       submenu: groupedConfigs.map(config => {
         return {
           id: config.id,
-          label: `${config.remarks}(${config.server}:${config.server_port})`,
+          label: `${config.ps || config.add} (${config.add}:${config.port})`,
           type: 'checkbox',
           checked: config.checked,
           click (e) {
