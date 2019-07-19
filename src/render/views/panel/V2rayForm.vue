@@ -28,10 +28,10 @@
       </Select>
     </FormItem>
     <FormItem label="伪装域名" prop="host">
-      <Input type="text" :value="editingConfig.host" @input="v => onInput('host', v)" />
+      <Input type="text" placeholder="1 ws host; 2 http/h2 host 中间逗号隔开; 3 quic 加密方式" :value="editingConfig.host" @input="v => onInput('host', v)" />
     </FormItem>
     <FormItem label="路径" prop="path">
-      <Input type="text" :value="editingConfig.path" @input="v => onInput('path', v)" />
+      <Input type="text" placeholder="1 ws/h2 path; 2 quic 加密密钥" :value="editingConfig.path" @input="v => onInput('path', v)" />
     </FormItem>
     <FormItem label="底层传输安全" prop="tls">
       <Select :value="editingConfig.tls" @input="v => onInput('tls', v)" @on-change="onTlsChange">

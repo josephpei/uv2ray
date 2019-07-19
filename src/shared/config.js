@@ -17,6 +17,12 @@ const defaultConfig = {
   v2rayPath: '',
   // 日志级别
   logLevel: 'warning',
+  // 域名策略
+  domainStrategy: 'IPIfNonMatch',
+  // 路由模式
+  routerModel: '绕过局域网及大陆地址',
+  // 自定义DNS
+  customDNS: ['1.1.1.1', '8.8.8.8'],
   // pac端口号
   pacPort: 2333,
   // 系统代理启用模式 0 不启用 1 PAC 2 全局
