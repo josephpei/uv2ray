@@ -6,10 +6,6 @@ Based on [electron-ssr](https://github.com/erguotou520/electron-ssr)
 
 Just for study!
 
-## Know Issue
-
-* v2ray config only support tcp / ws, need your help!
-
 ## Project setup
 ```
 yarn

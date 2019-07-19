@@ -363,8 +363,11 @@ export function v2rayConfigHandler (appConfig, v2rayConfig) {
       streamSettings = {
         network: 'kcp',
         security: v2rayConfig.tls,
-        kcpSettigns: {
+        kcpSettings: {
           mtu: 1350,
+          header: {
+            type: 'wechat-video'
+          }
         },
       }
       break
@@ -388,7 +391,11 @@ export function v2rayConfigHandler (appConfig, v2rayConfig) {
     case 'quic':
       streamSettings = {
         network: 'quic',
-        security: v2rayConfig.tls,
+        security: v2rayConfig.host,
+        key: v2rayConfig.path,
+        header: {
+          type: 'wechat-video'
+        }
       }
       break
     case 'h2':
@@ -458,26 +465,64 @@ export function v2rayConfigHandler (appConfig, v2rayConfig) {
       streamSettings: null,
       mux: null,
     },
+    {
+      tag: 'blocked',
+      protocol: 'blackhole',
+      settings: {}
+    }
   ]
 
   // DNS配置
-  const dns = null
+  const dns = {
+    hosts: {
+      // The following settings help to eliminate DNS poisoning in mainland China.
+      'domain:v2ray.com': 'www.vicemc.net',
+      'domain:github.io': 'pages.github.com',
+      'domain:wikipedia.org': 'www.wikimedia.org',
+      'domain:shadowsocks.org': 'electronicsrealm.com'
+    },
+    servers: [
+      '1.1.1.1',
+      '8.8.8.8',
+      {
+        address: '114.114.114.114',
+        port: 53,
+        domains: [ 'geosite:cn' ]
+      },
+      'localhost'
+    ]
+  }
 
   // routing 路由配置
-  const routing = {
-    domainStrategy: 'IPIfNonMatch',
-    rules: []
+  let rules = [{
+    type: 'field',
+    domain: ['geosite:category-ads'],
+    outboundTag: 'blocked'
+  }]
+  if (appConfig.routerModel === '绕过局域网及大陆地址') {
+    rules.push({
+      type: 'field',
+      domain: ['geosite:cn'],
+      ip: ['geoip:cn', 'geoip:private'],
+      outboundTag: 'R_direct',
+    })
+  } else if (appConfig.routerModel === '绕过局域网地址') {
+    rules.push({
+      type: 'field',
+      ip: ['geoip:private'],
+      outboundTag: 'R_direct',
+    })
+  } else if (appConfig.routerModel === '绕过大陆地址') {
+    rules.push({
+      type: 'field',
+      domain: ['geosite:cn'],
+      ip: ['geoip:cn'],
+      outboundTag: 'R_direct'
+    })
   }
-  const routing1 = {
-    domainStrategy: 'IPOnDemand',
-    rules: [
-      {
-        type: 'field',
-        domain: ['geosite:cn'],
-        ip: ['geoip:cn', 'geoip:private'],
-        outboundTag: 'R_direct',
-      },
-    ],
+  const routing = {
+    domainStrategy: appConfig.domainStrategy,
+    rules: rules
   }
 
   const config = {

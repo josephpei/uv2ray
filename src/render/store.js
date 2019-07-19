@@ -87,7 +87,7 @@ export default new Vuex.Store({
       defaultV2rayDownloadDir: '',
     },
     view: {
-      page: views[2], // featureReaded ? views[1] : views[0],
+      page: featureReaded ? views[1] : views[0],
       tab: 'common',
       // 是否激活当前页面的主要操作
       active: false,
@@ -100,6 +100,9 @@ export default new Vuex.Store({
     networks,
     types,
     tlses,
+    loglevels: ['none', 'error', 'warning', 'info', 'debug'],
+    nstrategies: ['IPIfNonMatch', 'IPOnDemand', 'AsIs'],
+    rmodels: ['全局', '绕过局域网地址', '绕过大陆地址', '绕过局域网及大陆地址']
   },
   mutations: {
     // 更新应用配置

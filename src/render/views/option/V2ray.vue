@@ -1,28 +1,67 @@
 <template>
   <div class="options-container px-2 pb-2 scroll-y">
-    <Alert v-if="showTip" type="info" closable @on-close="closeTip">双击可修改，修改后回车可保存，esc可取消修改。</Alert>
+    <Form ref="form" class="mt-1" :model="form" :label-width="120">
+      <FormItem class="flex-1" label="日志等级">
+        <Select v-model="form.logLevel" @on-change="update('infoLevel')">
+          <Option v-for="level in loglevels" :key="level" :value="level">{{ level }}</Option>
+        </Select>
+      </FormItem>
+      <FormItem class="flex-1" label="域名策略">
+        <Select v-model="form.domainStrategy" @on-change="update('domainStrategy')">
+          <Option v-for="strategy in nstrategies" :key="strategy" :value="strategy">{{ strategy }}</Option>
+        </Select>
+      </FormItem>
+      <FormItem class="flex-1" label="域名策略">
+        <Select v-model="form.routerModel" @on-change="update('routerModel')">
+          <Option v-for="model in rmodels" :key="model" :value="model">{{ model }}</Option>
+        </Select>
+      </FormItem>
+      <FormItem class="flex-1" label="自定义DNS">
+        <Input type="text" placeholder="1.1.1.1,8.8.8.8" v-model="form.customDNS" @on-change="update('customDNS')" />
+      </FormItem>
+    </Form>
   </div>
 </template>
 <script>
-import { mapState, mapMutations } from 'vuex'
-import { STORE_KEY_V2RAY_TIP } from '../../constants'
-// const ls = window.localStorage
-import { ls } from '../../store'
+import { mapState, mapActions } from 'vuex'
+import { debounce } from '../../../shared/utils'
 export default {
   data () {
+    const appConfig = this.$store.state.appConfig
     return {
-      showTip: !ls.get(STORE_KEY_V2RAY_TIP),
+      form: {
+        logLevel: appConfig.logLevel,
+        domainStrategy: appConfig.domainStrategy,
+        routerModel: appConfig.routerModel,
+        customDNS: appConfig.customDNS
+      }
     }
+    // 增加 rules，校验 DNS 格式
   },
   computed: {
-    ...mapState(['methods', 'protocols', 'obfses']),
+    ...mapState(['loglevels', 'nstrategies', 'rmodels']),
   },
-  components: { },
-  methods: {
-    ...mapMutations(['updateView', 'updateMethods', 'updateProtocols', 'updateObfses',]),
-    closeTip () {
-      ls.set(STORE_KEY_V2RAY_TIP, true)
+  watch: {
+    'appConfig.logLevel' (v) {
+      this.logLevel = v
     },
+    'appConfig.domainStrategy' (v) {
+      this.domainStrategy = v
+    },
+    'appConfig.routerModel' (v) {
+      this.routerModel = v
+    },
+    'appConfig.customDNS' (v) {
+      this.customDNS = v.split(',')
+    }
+  },
+  methods: {
+    ...mapActions(['updateConfig']),
+    update: debounce(function (field) {
+      if (this.form[field] !== this.$store.state.appConfig[field]) {
+        this.updateConfig({ [field]: this.form[field] })
+      }
+    }, 1000)
   },
 }
 </script>
