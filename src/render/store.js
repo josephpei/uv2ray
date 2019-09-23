@@ -271,7 +271,7 @@ export default new Vuex.Store({
                 }
                 return false
               })
-              if (configs.length) {
+              if (configs.length || oldNotChangedConfigs.length) {
                 dispatch(
                   'updateConfigs',
                   oldNotChangedConfigs.concat(configs).concat(notInGroupConfigs)
