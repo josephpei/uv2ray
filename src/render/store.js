@@ -243,6 +243,7 @@ export default new Vuex.Store({
             fetch(subscribe.URL).then(res => res.text()),
           ]).then(res => {
             const configs = isSubscribeContentValid(res)
+            const count = configs.length
             const group = subscribe.Group
             if (configs.length) {
               configs.forEach(config => {
@@ -271,7 +272,8 @@ export default new Vuex.Store({
                 }
                 return false
               })
-              if (configs.length || oldNotChangedConfigs.length) {
+              const deleted = groupedConfigs.length - oldNotChangedConfigs.length
+              if (configs.length || (deleted !== count)) {
                 dispatch(
                   'updateConfigs',
                   oldNotChangedConfigs.concat(configs).concat(notInGroupConfigs)
