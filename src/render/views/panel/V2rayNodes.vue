@@ -58,6 +58,13 @@ export default {
       selectedNode: {},
     }
   },
+  mounted () {
+    if (this.appConfig.configs.length && this.appConfig.index) {
+      let tree = this.$el.getElementsByClassName('node-tree')[0]
+      let top = tree.scrollHeight * (this.appConfig.index / this.appConfig.configs.length) - tree.clientHeight / 2
+      tree.scrollTop = Math.round(top)
+    }
+  },
   computed: {
     ...mapState(['appConfig', 'editingConfig', 'editingGroup']),
     ...mapGetters(['selectedConfig', 'isEditingConfigUpdated']),
