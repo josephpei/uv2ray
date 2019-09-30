@@ -2,7 +2,7 @@
   <div class="options-container px-2 pb-2 scroll-y">
     <Form ref="form" class="mt-1" :model="form" :label-width="120">
       <FormItem class="flex-1" label="日志等级">
-        <Select v-model="form.logLevel" @on-change="update('infoLevel')">
+        <Select v-model="form.logLevel" @on-change="update('logLevel')">
           <Option v-for="level in loglevels" :key="level" :value="level">{{ level }}</Option>
         </Select>
       </FormItem>
@@ -33,7 +33,7 @@ export default {
         logLevel: appConfig.logLevel,
         domainStrategy: appConfig.domainStrategy,
         routerModel: appConfig.routerModel,
-        customDNS: appConfig.customDNS
+        customDNS: appConfig.customDNS.toString()
       }
     }
     // 增加 rules，校验 DNS 格式

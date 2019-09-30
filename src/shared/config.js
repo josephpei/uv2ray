@@ -16,7 +16,7 @@ const defaultConfig = {
   // 本地v2ray目录
   v2rayPath: '',
   // 日志级别
-  logLevel: 'warning',
+  logLevel: 'error',
   // 域名策略
   domainStrategy: 'IPIfNonMatch',
   // 路由模式
