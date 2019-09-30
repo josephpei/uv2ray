@@ -23,6 +23,6 @@ log.transports.file.maxSize = 5 * 1024 * 1024
 log.transports.file.level = 'info'
 log.transports.console.format = '{y}-{m}-{d} {h}:{i}:{s}:{ms} [{level}] {text}'
 log.transports.console.level =
-  process.env.NODE_ENV === 'production' ? 'info' : 'debug'
+  process.env.NODE_ENV === 'production' ? 'error' : 'debug'
 
 export default log
