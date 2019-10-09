@@ -6,6 +6,10 @@ Based on [electron-ssr](https://github.com/erguotou520/electron-ssr)
 
 Just for study!
 
+## Usage
+
+Instal `v2ray` use pacakge manager such as `pacman`, or download v2ray by yourself(need 4 files `v2ray` `v2ctl` `geosite.dat` `geoip.dat`)
+
 ## Project setup
 ```
 yarn
