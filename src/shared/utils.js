@@ -195,6 +195,16 @@ export function clone (obj, deep = false) {
   }
 }
 
+// 目录或文件是否可写
+export function isPathWritable (path) {
+  try {
+    fs.accessSync(path, fs.constants.W_OK)
+    return true
+  } catch (err) {
+    return false
+  }
+}
+
 // 配置是否相同
 export function isConfigEqual (config1, config2) {
   return (
@@ -326,8 +336,8 @@ export function isSubscribeContentValid (content) {
 /**
  * 根据配置生成 config.json
  */
-export function v2rayConfigHandler (appConfig, v2rayConfig) {
-  const configFile = path.join(appConfig.v2rayPath, 'config.json')
+export function v2rayConfigHandler (appConfig, v2rayConfig, configFile) {
+  // const configFile = path.join(appConfig.v2rayPath, 'config.json')
 
   // log 日志配置
   const log = {
