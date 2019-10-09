@@ -15,7 +15,7 @@ export function createWindow () {
   }
   /* global __static */
   mainWindow = new BrowserWindow({
-    height: 540,
+    height: 480,
     width: 1000,
     center: true,
     resizable: true,
