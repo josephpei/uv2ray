@@ -1,11 +1,14 @@
 import path from 'path'
+import fs from 'fs'
+import util from 'util'
 import { execFile } from 'child_process'
 // import treeKill from 'tree-kill'
 import { dialog } from 'electron'
+import { appConfigDir } from './bootstrap'
 import { appConfig$ } from './data'
 import { isHostPortValid } from './port'
 import logger from './logger'
-import { isConfigEqual, v2rayConfigHandler } from '../shared/utils'
+import { isConfigEqual, v2rayConfigHandler, isPathWritable } from '../shared/utils'
 import { showNotification } from './notification'
 let child
 
@@ -13,17 +16,32 @@ let child
  * 运行shell命令并写入到日志中
  * @param {*String} command 待执行的shell命令
  */
-export function runCommand (command) {
-  child = execFile(command)
-  child.stdout.on('data', logger.info)
-  child.stderr.on('data', logger.error)
-  // if (command && params.length) {
-  //   const commandStr = `${command} ${params.join(' ')}`
-  //   logger.info('run command: %s', commandStr.replace(/-k [\d\w]* /, '-k ****** '))
-  //   child = execFile(command, params)
-  //   child.stdout.on('data', logger.info)
-  //   child.stderr.on('data', logger.error)
-  // }
+export function runCommand (command, params) {
+  // child = execFile(command)
+  // child.stdout.on('data', logger.info)
+  // child.stderr.on('data', logger.error)
+  if (command && params.length) {
+    const commandStr = `${command} ${params.join(' ')}`
+    logger.info('run command: %s', commandStr.replace(/-k [\d\w]* /, '-k ****** '))
+    child = execFile(command, params)
+    child.stdout.on('data', logger.info)
+    child.stderr.on('data', logger.error)
+  }
+}
+
+/**
+ * 获取v2ray版本号
+ */
+export async function getV2rayVersion (appConfig) {
+  const command = appConfig.v2rayPath === '/usr/bin' ? 'v2ray' : path.join(appConfig.v2rayPath, 'v2ray')
+  const execFile = util.promisify(require('child_process').execFile)
+  const { stdout } = await execFile(command, ['-version'])
+  const reg = /\d+\.\d+\.\d+/g
+  const match = reg.exec(stdout)
+  if (match) {
+    return match[0]
+  }
+  return ''
 }
 
 /**
@@ -48,9 +66,14 @@ export async function run (appConfig) {
   }
   const config = appConfig.configs[appConfig.index]
   // 生成 config.json
-  v2rayConfigHandler(appConfig, config)
-  const command = path.join(appConfig.v2rayPath, 'v2ray')
-  runCommand(command)
+  const configFile =
+    isPathWritable(appConfig.v2rayPath)
+      ? path.join(appConfigDir, 'config.json')
+      : path.join(appConfig.v2rayPath, 'config.json')
+  v2rayConfigHandler(appConfig, config, configFile)
+  const command = appConfig.v2rayPath === '/usr/bin' ? 'v2ray' : path.join(appConfig.v2rayPath, 'v2ray')
+  const params = [`-config=${configFile}`]
+  runCommand(command, params)
 }
 
 /**

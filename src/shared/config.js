@@ -15,6 +15,8 @@ const defaultConfig = {
   localPort: 1080,
   // 本地v2ray目录
   v2rayPath: '',
+  // v2ray 版本
+  v2rayVersion: '',
   // 日志级别
   logLevel: 'error',
   // 域名策略

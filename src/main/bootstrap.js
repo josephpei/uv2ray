@@ -71,7 +71,7 @@ export const macToolPath = path.resolve(appConfigDir, 'proxy_conf_helper')
 // 在mac上执行sudo命令
 async function sudoMacCommand (command) {
   return new Promise((resolve, reject) => {
-    sudo.exec(command, { name: 'ShadowsocksR Client' }, (error, stdout, stderr) => {
+    sudo.exec(command, { name: 'V2ray Client' }, (error, stdout, stderr) => {
       if (error || stderr) {
         reject(error || stderr)
       } else {
