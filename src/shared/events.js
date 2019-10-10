@@ -25,6 +25,12 @@ export const EVENT_APP_TOGGLE_MENU = 'app.toggle.menu'
 // 由`ipc-renderer`发出 用于选择本地文件/目录
 export const EVENT_APP_OPEN_DIALOG = 'app.open.dialog'
 
+// 由`ipc-renderer`发出 获取v2ray版本号
+export const EVENT_V2RAY_VERSION_RENDERER = 'v2ray.version.renderer'
+
+// 由`ipc-main`发出 获取v2ray版本号
+export const EVENT_V2RAY_VERSION_MAIN = 'v2ray.version.main'
+
 // 由`ipc-renderer`发出 自动下载v2ray项目并设置目录
 export const EVENT_V2RAY_DOWNLOAD_RENDERER = 'v2ray.download.renderer'
 
