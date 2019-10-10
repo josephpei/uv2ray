@@ -1,5 +1,4 @@
 import path from 'path'
-import fs from 'fs'
 import util from 'util'
 import { execFile } from 'child_process'
 // import treeKill from 'tree-kill'
@@ -33,7 +32,7 @@ export function runCommand (command, params) {
  * 获取v2ray版本号
  */
 export async function getV2rayVersion (appConfig) {
-  const command = appConfig.v2rayPath === '/usr/bin' ? 'v2ray' : path.join(appConfig.v2rayPath, 'v2ray')
+  const command = isPathWritable(appConfig.v2rayPath) ? 'v2ray' : path.join(appConfig.v2rayPath, 'v2ray')
   const execFile = util.promisify(require('child_process').execFile)
   const { stdout } = await execFile(command, ['-version'])
   const reg = /\d+\.\d+\.\d+/g
@@ -66,12 +65,13 @@ export async function run (appConfig) {
   }
   const config = appConfig.configs[appConfig.index]
   // 生成 config.json
+  const writable = isPathWritable(appConfig.v2rayPath)
   const configFile =
-    isPathWritable(appConfig.v2rayPath)
-      ? path.join(appConfigDir, 'config.json')
-      : path.join(appConfig.v2rayPath, 'config.json')
+    writable
+      ? path.join(appConfig.v2rayPath, 'config.json')
+      : path.join(appConfigDir, 'config.json')
   v2rayConfigHandler(appConfig, config, configFile)
-  const command = appConfig.v2rayPath === '/usr/bin' ? 'v2ray' : path.join(appConfig.v2rayPath, 'v2ray')
+  const command = writable ? path.join(appConfig.v2rayPath, 'v2ray') : 'v2ray'
   const params = [`-config=${configFile}`]
   runCommand(command, params)
 }
