@@ -28,6 +28,7 @@
   </AppView>
 </template>
 <script>
+import { ls } from '../store'
 import IconCross from '../assets/icon_cross_platform.svg'
 import IconFunctions from '../assets/icon_functions.svg'
 import IconOpen from '../assets/icon_open_source.svg'
@@ -45,7 +46,7 @@ export default {
   },
   methods: {
     done () {
-      localStorage.setItem(STORE_KEY_FEATURE, 'read')
+      ls.set(STORE_KEY_FEATURE, 'read')
       this.$emit('finished')
     },
   },
