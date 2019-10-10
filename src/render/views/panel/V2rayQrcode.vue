@@ -46,6 +46,9 @@
       <!-- <Button class="w-6r" type="default" @click="cancel">取消</Button>
       <Button class="w-6r ml-3" type="primary" @click="save">确定</Button> -->
     </div>
+    <div class="flex flex-column flex-ai-center flex-jc-center pos-r">
+      <p class="text-sub-title mt-2">v2ray版本：{{ v2rayVersion }}</p>
+    </div>
   </div>
 </template>
 <script>
@@ -75,6 +78,9 @@ export default {
   computed: {
     ...mapState(['appConfig', 'editingConfig']),
     ...mapGetters(['isEditingConfigUpdated']),
+    v2rayVersion () {
+      return this.appConfig.v2rayVersion
+    },
     editingConfigLink () {
       return this.editingConfig.getV2rayLink()
     },

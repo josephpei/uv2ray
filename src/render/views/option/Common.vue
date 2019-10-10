@@ -36,9 +36,11 @@
   </div>
 </template>
 <script>
+import { ipcRenderer } from 'electron'
 import { mapActions } from 'vuex'
 import { isV2rayPathAvaliable, debounce } from '../../../shared/utils'
 import { openDialog } from '../../ipc'
+import { EVENT_V2RAY_VERSION_RENDERER, EVENT_V2RAY_VERSION_MAIN} from '../../../shared/events'
 export default {
   data () {
     const appConfig = this.$store.state.appConfig
@@ -95,14 +97,20 @@ export default {
     },
     // 选择目录
     selectPath () {
+      const self = this
+      function callback (e, v2rayVersion) {
+        // console.log('v2ray version', e, v2rayVersion)
+        self.updateConfig({ v2rayPath: self.form.v2rayPath, v2rayVersion: v2rayVersion })
+      }
       const path = openDialog({
         properties: ['openDirectory'],
       })
       if (path && path.length) {
-        this.form.v2rayPath = path[0]
-        this.$refs.form.validate(valid => {
+        self.form.v2rayPath = path[0]
+        self.$refs.form.validate(valid => {
           if (valid) {
-            this.updateConfig({ v2rayPath: this.form.v2rayPath })
+            ipcRenderer.send(EVENT_V2RAY_VERSION_RENDERER, self.form.v2rayPath)
+            ipcRenderer.on(EVENT_V2RAY_VERSION_MAIN, callback)
           }
         })
       }

@@ -6,6 +6,7 @@ import { updateAppConfig } from './data'
 import { hideWindow, sendData } from './window'
 import { importConfigFromClipboard } from './tray-handler'
 import defaultConfig, { mergeConfig } from '../shared/config'
+import { getV2rayVersion } from './client'
 import { showNotification } from './notification'
 import { toggleMenu } from './menu'
 import logger from './logger'
@@ -39,6 +40,10 @@ ipcMain
     // 同步数据
     logger.debug(`received sync data: ${data}`)
     updateAppConfig(data, true)
+  })
+  .on(events.EVENT_V2RAY_VERSION_RENDERER, async (e, v2rayPath) => {
+    const v2rayVersion = await getV2rayVersion(v2rayPath)
+    e.sender.send(events.EVENT_V2RAY_VERSION_MAIN, v2rayVersion)
   })
   // .on(events.EVENT_V2RAY_DOWNLOAD_RENDERER, e => {
   //   // 下载v2ray

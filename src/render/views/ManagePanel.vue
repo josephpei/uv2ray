@@ -9,18 +9,31 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import V2rayNodes from './panel/V2rayNodes'
 import V2rayFrom from './panel/V2rayForm'
 import V2rayGroup from './panel/V2rayGroup'
 import V2rayQrcode from './panel/V2rayQrcode'
+import { ipcRenderer } from 'electron'
+import { EVENT_V2RAY_VERSION_RENDERER, EVENT_V2RAY_VERSION_MAIN } from '../../shared/events'
 
 export default {
   name: 'ManagePanel',
   components: { V2rayNodes, V2rayFrom, V2rayGroup, V2rayQrcode },
   computed: {
-    ...mapState(['editingGroup']),
+    ...mapState(['appConfig', 'editingGroup']),
   },
+  methods: {
+    ...mapActions(['updateConfig']),
+  },
+  created () {
+    const self = this
+    function callback (e, v2rayVersion) {
+      self.updateConfig({ v2rayVersion: v2rayVersion})
+    }
+    ipcRenderer.send(EVENT_V2RAY_VERSION_RENDERER, self.appConfig.v2rayPath)
+    ipcRenderer.on(EVENT_V2RAY_VERSION_MAIN, callback)
+  }
 }
 </script>
 

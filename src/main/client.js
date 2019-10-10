@@ -31,8 +31,8 @@ export function runCommand (command, params) {
 /**
  * 获取v2ray版本号
  */
-export async function getV2rayVersion (appConfig) {
-  const command = isPathWritable(appConfig.v2rayPath) ? 'v2ray' : path.join(appConfig.v2rayPath, 'v2ray')
+export async function getV2rayVersion (v2rayPath) {
+  const command = isPathWritable(v2rayPath) ? path.join(v2rayPath, 'v2ray') : 'v2ray'
   const execFile = util.promisify(require('child_process').execFile)
   const { stdout } = await execFile(command, ['-version'])
   const reg = /\d+\.\d+\.\d+/g
