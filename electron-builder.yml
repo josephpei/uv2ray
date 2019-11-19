@@ -1,12 +1,28 @@
 
 appId: io.josephpei.uv2ray
 productName: uv2ray
-copyright: Copyright © year Joseph Pei <josephpei@gmail.com>
+copyright: Copyright © 2019 Joseph Pei <josephpei@gmail.com>
 linux:
   synopsis: uv2ray
-  description: V2ray Client
+  description: V2ray Electron GUI Client
   target:
     - AppImage
-  maintainer: Joseph Pei
+    - deb
+    - pacman
+  maintainer: Joseph Pei <josephpei@gmail.com>
   category: Network
+  artifactName: ${productName}-${arch}-${version}.${ext}
+  desktop:
+    Name: uv2ray
+    Icon: uv2ray.png
+
+pacman:
+  depends:
+    - v2ray
+  packageCategory: Network
+  compression: xz
+  maintainer: Joseph Pei <josephpei@gmail.com>
+deb:
+  packageCategory: Network
+  maintainer: Joseph Pei <josephpei@gmail.com>
 
