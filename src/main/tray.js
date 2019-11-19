@@ -160,11 +160,11 @@ export function changeProxy (e, mode, appConfig) {
 // 根据配置显示tray tooltip
 function getTooltip (appConfig) {
   if (!appConfig.enable) {
-    return 'ShadowsocksR客户端：应用未启动'
+    return 'V2ray客户端：应用未启动'
   }
   const arr = []
   if (appConfig.enable) {
-    arr.push('ShadowsocksR客户端：应用已启动\n')
+    arr.push('V2ray客户端：应用已启动\n')
   }
   arr.push('代理启动方式：')
   if (appConfig.sysProxyMode === 0) {
@@ -178,8 +178,8 @@ function getTooltip (appConfig) {
   if (selectedConfig) {
     arr.push('\n')
     arr.push(
-      `${selectedConfig.group ? selectedConfig.group + ' - ' : ''}${selectedConfig.remarks ||
-        selectedConfig.server + ':' + selectedConfig.server_port}`
+      `${selectedConfig.group ? selectedConfig.group + ' - ' : ''}${selectedConfig.ps ||
+        selectedConfig.add + ':' + selectedConfig.port}`
     )
   }
   return arr.join('')
