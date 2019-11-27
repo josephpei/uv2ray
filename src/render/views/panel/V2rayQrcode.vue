@@ -48,8 +48,8 @@
       <Button class="w-6r ml-3" type="primary" @click="save">确定</Button> -->
     </div>
     <div class="flex-as-end pos-r">
-      <p class="text-sub-title mt-2">v2ray版本: {{ v2rayVersion }}</p>
-      <span>DarkMode: </span><i-switch size="small" v-model="isDark" @on-change="changeTheme" />
+      <p class="text-sub-title">v2ray版本: {{ v2rayVersion }}</p>
+      <span class="text-sub-title">DarkMode: </span><i-switch size="small" v-model="isDark" @on-change="changeTheme" />
     </div>
   </div>
 </template>
