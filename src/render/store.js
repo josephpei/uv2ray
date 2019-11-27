@@ -18,6 +18,7 @@ import {
   STORE_KEY_V2RAY_NETWORKS,
   STORE_KEY_V2RAY_TYPES,
   STORE_KEY_V2RAY_TLSES,
+  STORE_KEY_WIN_THEME,
 } from './constants'
 import Store from 'electron-store'
 
@@ -42,6 +43,7 @@ const storedSecurities = ls.get(STORE_KEY_V2RAY_SECURITIES)
 const storedNetworks = ls.get(STORE_KEY_V2RAY_NETWORKS)
 const storedTypes = ls.get(STORE_KEY_V2RAY_TYPES)
 const storedTlses = ls.get(STORE_KEY_V2RAY_TLSES)
+const storedTheme = ls.get(STORE_KEY_WIN_THEME)
 
 let securities
 let networks
@@ -92,6 +94,7 @@ export default new Vuex.Store({
       // 是否激活当前页面的主要操作
       active: false,
     },
+    theme: storedTheme,
     editingConfig,
     // 备份当前选中的配置项
     editingConfigBak: new Config(),
@@ -124,6 +127,11 @@ export default new Vuex.Store({
     updateMeta (state, targetMeta) {
       merge(state.meta, targetMeta)
       console.log('meta updated: ', targetMeta)
+    },
+    // 更改窗口主题
+    updateTheme (state, theme) {
+      ls.set(STORE_KEY_WIN_THEME, theme)
+      state.theme = theme
     },
     // 更改页面视图
     updateView (state, targetView) {

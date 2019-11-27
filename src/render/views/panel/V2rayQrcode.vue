@@ -27,11 +27,12 @@
       <li @click="copyLink">复制链接</li>
     </ul>
     <div class="link flex flex-ai-center mt-1">
-      <span>vmess链接</span>
+      <span class="tip">vmess链接&nbsp;</span>
       <i-input class="flex-1" ref="input" :value="editingConfigLink" readonly style="width:auto">
         <template slot="append">
           <Tooltip :content="copyTooltip" placement="top-end" :delay="300">
             <Button
+              class="ivu-btn-icon-copy"
               icon="ios-copy"
               @click="copyLink"
               @mouseover.native="onCopyOver"
@@ -46,8 +47,9 @@
       <!-- <Button class="w-6r" type="default" @click="cancel">取消</Button>
       <Button class="w-6r ml-3" type="primary" @click="save">确定</Button> -->
     </div>
-    <div class="flex flex-column flex-ai-center flex-jc-center pos-r">
-      <p class="text-sub-title mt-2">v2ray版本：{{ v2rayVersion }}</p>
+    <div class="flex-as-end pos-r">
+      <p class="text-sub-title mt-2">v2ray版本: {{ v2rayVersion }}</p>
+      <span>DarkMode: </span><i-switch size="small" v-model="isDark" @on-change="changeTheme" />
     </div>
   </div>
 </template>
@@ -76,7 +78,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['appConfig', 'editingConfig']),
+    ...mapState(['theme', 'appConfig', 'editingConfig']),
     ...mapGetters(['isEditingConfigUpdated']),
     v2rayVersion () {
       return this.appConfig.v2rayVersion
@@ -87,6 +89,14 @@ export default {
     editingConfigQR () {
       return qr.svgObject(this.editingConfigLink)
     },
+    isDark: {
+      get: function () {
+        return this.theme == 'dark'
+      },
+      set: function () {
+
+      }
+    }
   },
   directives: {
     clickoutside,
@@ -167,6 +177,10 @@ export default {
         window.alert('服务器配置信息不完整')
       }
     },
+    changeTheme (status) {
+      const theme = status ? 'dark' : 'light'
+      this.$store.commit('updateTheme', theme)
+    }
   },
 }
 </script>
@@ -176,20 +190,21 @@ export default {
 .app-qrcode
   .tip
     line-height 0
-    color $color-sub-title
+    color $color-text
   .contextmenu
+    color $color-text
     position absolute
     display block
     margin 0
     padding 2px 0
     min-width 6rem
     list-style none
-    background-color #fff
+    background-color $color-context-bg
     box-shadow 2px 2px 4px rgba(0, 0, 0, 0.5)
     z-index 999
     li
       padding 4px 16px
       cursor pointer
       &:hover
-        background-color #f1f1f1
+        background-color $color-context-bg
 </style>

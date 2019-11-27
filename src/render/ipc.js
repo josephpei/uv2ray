@@ -13,6 +13,9 @@ ipcRenderer
     // 显示main进程的通知
     showHtmlNotification(body, title)
   })
+  .on(events.EVENT_APP_MAC_DARKMODE, (e, isDark) => {
+    store.commit('updateTheme', isDark ? 'dark' : 'light')
+  })
   .on(events.EVENT_APP_SCAN_DESKTOP, () => {
     // 扫描二维码
     // scanQrcode((e, result) => {

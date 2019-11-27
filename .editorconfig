@@ -10,7 +10,7 @@ indent_size=4
 indent_style=space
 indent_size=2
 
-[{*.applejs,*.js,*.vue}]
+[{*.applejs,*.js,*.vue,*.less,*.styl}]
 indent_style=space
 indent_size=2
 

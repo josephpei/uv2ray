@@ -1,8 +1,24 @@
 /**
  * 变量定义
  */
+[class="light"] {
+  --primary-color: #2d8cf0;
+  --context-bg: #f1f1f1;
+  --color-sub-title: #80848f;
+  --color-text: #000;
+}
+
+[class="dark"] {
+  --primary-color: #296eb3;
+  --context-bg: #363e4f;
+  --color-sub-title: #1c2438;
+  --color-text: #fff;
+}
+
+
 // 主色调
-$color-primary = #2d8cf0
+$color-primary = var(--primary-color)
+$color-context-bg = var(--context-bg)
 $color-light-primary = #5cadff
 $color-dark-primary = #2b85e4
 
@@ -13,10 +29,12 @@ $color-warning = #ff9900
 $color-error = #ed3f14
 
 // 中性色
+$color-text = var(--color-text)
 $color-title = #1c2438
 $color-content = #495060
-$color-sub-title = #80848f
+$color-sub-title = var(--color-sub-title)
 $color-disabled = #bbbec4
 $color-border = #dddee1
 $color-divider = #e9eaec
 $color-background = #f8f8f9
+$color-context-bg = var(--context-bg)

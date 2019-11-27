@@ -1,5 +1,5 @@
 <template>
-  <AppView name="options" class="bg-white">
+  <AppView name="options" class="bg-primary">
     <Tabs class="flex-1 w-100" :value="view.tab" @on-click="name => updateView({ tab: name })">
       <TabPane label="通用设置" name="common">
         <OptionCommon></OptionCommon>

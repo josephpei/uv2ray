@@ -1,5 +1,5 @@
 <template>
-  <AppView name="setup" class="px-2">
+  <AppView name="setup" class="px-2 bg-primary">
     <div class="flex flex-column flex-ai-center w-100">
       <div class="flex flex-ai-center w-100">
         <div class="flex-1 flex flex-ai-center flex-jc-end">
