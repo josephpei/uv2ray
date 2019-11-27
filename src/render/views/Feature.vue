@@ -1,5 +1,5 @@
 <template>
-  <AppView name="feature">
+  <AppView name="feature" class="bg-primary">
     <h1>Electron V2ray 客户端</h1>
     <Row type="flex" :gutter="24" class="mt-64">
       <i-col class="col flex flex-column flex-ai-center flex-jc-center">

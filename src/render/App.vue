@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" :class="[themeClass]">
     <transition name="page-view">
       <component :is="view.page" @back="onBack" @finished="onStepFinished"></component>
     </transition>
@@ -17,7 +17,10 @@ export default {
   name: 'uv2ray',
   components: { Feature, Setup, ManagePanel, Options },
   computed: {
-    ...mapState(['view']),
+    ...mapState(['view', 'theme']),
+    themeClass () {
+      return this.theme
+    }
   },
   methods: {
     ...mapMutations(['prevView', 'nextView']),

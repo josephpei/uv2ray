@@ -1,5 +1,5 @@
 <template>
-  <AppView name="panel" class="px-2 py-2" row>
+  <AppView name="panel" class="bg-primary px-2 py-2" row>
     <V2rayNodes></V2rayNodes>
     <V2rayFrom class="flex-1 mx-1"></V2rayFrom>
     <V2rayGroup v-show="editingGroup.show && editingGroup.title" class="flex-1 ml-1"></V2rayGroup>

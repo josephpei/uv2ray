@@ -1,0 +1,194 @@
+@import '~iview/src/styles/index';
+
+.themify(@primaryColor: #2d8cf0) {
+  @primary-color: #296eb3;
+  @info-color: #5c8cbd;
+  @body-background: #181f25;
+  @component-background: #181f25;
+  @context-background: #363e4f;
+  @border-color: #202932;
+  @btn-default-bg: #565656;
+  @btn-disable-bg: #132f47;
+  @table-thead-bg: #171717;
+  @table-td-stripe-bg: #353535;
+  @table-td-hover-bg: #75818a;
+  @table-td-highlight-bg: #5d89a7;
+  @text-color: #fff;
+  @selected-color: fade(@primary-color, 90%);
+  @tooltip-color: #fff;
+
+  // :not([class*="-text"]) {
+  //     background-color: @body-background;
+  // }
+  ::-webkit-scrollbar-thumb {
+    background-color: #363e4f;
+    border-radius: 4px;
+    &:hover {
+      background-color: #808695;
+      border-color: @border-color;
+    }
+  }
+
+  .bg-primary {
+    background-color: @component-background;
+  }
+
+  .ivu-btn {
+    background-color: @btn-default-bg;
+    color: @text-color;
+    border-color: @border-color;
+    &:hover {
+      color: tint(@text-color, 20%);
+      background-color: fade(tint(@btn-default-bg, 95%), 20%);
+      border-color: @border-color;
+    }
+
+    &-primary {
+      .btn-color(@primary-color);
+      &[disabled] {
+        background-color: @btn-disable-bg;
+        border-color: @border-color;
+        &:hover {
+          background-color: fade(tint(@btn-disable-bg, 95%), 20%);
+          border-color: @border-color;
+        }
+      }
+    }
+
+    &-text {
+      background-color: @primary-color;
+      color: @title-color;
+    }
+
+    &-info {
+      .btn-color(@info-color);
+    }
+  }
+
+  .ivu-btn-icon-copy {
+    background: @component-background;
+    border-color: @border-color;
+    &:hover {
+      background-color: tint(@component-background, 20%);
+    }
+  }
+
+  .ivu-dropdown-item {
+    background-color: #363e4f;
+    color: @text-color;
+    &:hover {
+      background-color: tint(#363e4f, 20%);
+    }
+  }
+
+  .ivu-form-item-label {
+    color: @text-color;
+  }
+
+  .ivu-input-number {
+    border-color: @border-color;
+
+    &-input {
+      background-color: @component-background;
+      color: @text-color;
+    }
+
+    &-handler-up {
+      background-color: tint(@component-background, 20%);
+      border-color: @border-color;
+    }
+    &-handler-down {
+      background-color: tint(@component-background, 20%);
+      border-color: @border-color;
+    }
+  }
+
+  .ivu-input {
+    background-color: @component-background;
+    color: @text-color;
+    border-color: @border-color;
+    &:hover {
+      border-color: @primary-color;
+    }
+  }
+
+  .ivu-select {
+    color: @text-color;
+    &-selection {
+      background-color: @component-background;
+      border-color: @border-color;
+      &:hover {
+        background-color: tint(@component-background, 20%);
+        border-color: @primary-color;
+      }
+      .ivu-select-placeholder {
+        color: @input-placeholder-color;
+      }
+    }
+    &-dropdown,
+    &-dropdown-list {
+      background-color: #363e4f;
+    }
+    &-item {
+      color: @text-color;
+      &-selected {
+        color: @selected-color;
+      }
+      &:hover {
+        background-color: @component-background;
+      }
+    }
+  }
+
+  .ivu-tree {
+    background-color: @component-background;
+    border-color: @border-color;
+    &-title {
+      color: @text-color;
+      &:hover {
+        background-color: fade(@primary-color, 90%);
+      }
+      &-selected,
+      &-selected:hover {
+        background-color: fade(@primary-color, 80%);
+      }
+    }
+  }
+
+  .ivu-table {
+    background-color: @component-background;
+    border-color: @border-color;
+    color: @text-color;
+    th {
+      background-color: @table-thead-bg;
+      border-color: @border-color;
+    }
+    td {
+      background-color: @component-background;
+      border-color: @border-color;
+    }
+    &-body {
+      tr:nth-child(2n) {
+        td {
+          background-color: @table-td-stripe-bg;
+        }
+      }
+      // #1380
+      tr.ivu-table-row-hover {
+        td {
+          background-color: @table-td-hover-bg;
+        }
+      }
+    }
+    tr&-row-hover {
+      td {
+        background-color: @table-td-hover-bg;
+      }
+    }
+
+  }
+}
+
+.dark {
+  .themify(#2963b3);
+}

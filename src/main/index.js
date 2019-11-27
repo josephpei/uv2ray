@@ -1,4 +1,4 @@
-import { app, powerMonitor } from 'electron'
+import { app, powerMonitor, systemPreferences } from 'electron'
 import AutoLaunch from 'auto-launch'
 import bootstrap from './bootstrap'
 import { isQuiting, appConfig$, currentConfig, addConfigs } from './data'
@@ -10,12 +10,13 @@ import { stopPacServer } from './pac'
 import { stopHttpProxyServer } from './http-proxy'
 import { stop as stopCommand, runWithConfig } from './client'
 import { setProxyToNone } from './proxy'
-import { createWindow, showWindow, getWindow, destroyWindow } from './window'
+import { createWindow, showWindow, getWindow, destroyWindow, sendData } from './window'
 import { startTask, stopTask } from './subscribe'
 import logger from './logger'
 import { clearShortcuts } from './shortcut'
 import { loadConfigsFromString } from '../shared/v2ray'
 import { isMac, isWin } from '../shared/env'
+import { EVENT_APP_MAC_DARKMODE } from '../shared/events'
 
 const singleLock = app.requestSingleInstanceLock()
 
@@ -42,6 +43,18 @@ bootstrap.then(() => {
   createWindow()
   if (isWin || isMac) {
     app.setAsDefaultProtocolClient('vmess')
+  }
+
+  if (isMac && systemPreferences.isDarkMode()) {
+    sendData(EVENT_APP_MAC_DARKMODE, systemPreferences.isDarkMode())
+  }
+  if (isMac) {
+    systemPreferences.subscribeNotification('AppleInterfaceThemeChangedNotification', async () => {
+      const win = getWindow()
+      if (win) {
+        sendData(EVENT_APP_MAC_DARKMODE, systemPreferences.isDarkMode())
+      }
+    })
   }
 
   if (process.env.NODE_ENV !== 'development') {
@@ -132,3 +145,4 @@ app.on('activate', () => {
     createWindow()
   }
 })
+

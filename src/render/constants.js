@@ -10,5 +10,7 @@ export const STORE_KEY_V2RAY_NETWORKS = 'v2ray.networks'
 export const STORE_KEY_V2RAY_TYPES = 'v2ray.types'
 // v2ray tls
 export const STORE_KEY_V2RAY_TLSES = 'v2ray.tlses'
-// ssr配置页面提示标语
+// v2ray 配置页面提示标语
 export const STORE_KEY_V2RAY_TIP = 'v2ray.tip'
+// 窗口主题
+export const STORE_KEY_WIN_THEME = 'win.theme'
