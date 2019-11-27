@@ -65,8 +65,8 @@ ipcMain
     // 切换menu显示
     toggleMenu()
   })
-  .on(events.EVENT_APP_OPEN_DIALOG, (e, params) => {
-    const ret = dialog.showOpenDialog(params)
+  .on(events.EVENT_APP_OPEN_DIALOG, async (e, params) => {
+    const ret = await dialog.showOpenDialog(params)
     e.returnValue = ret || ''
   })
 
