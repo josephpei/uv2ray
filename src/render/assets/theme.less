@@ -7,6 +7,7 @@
   @component-background: #181f25;
   @context-background: #363e4f;
   @border-color: #202932;
+  @input-placeholder-color: #4e4e4e;
   @btn-default-bg: #565656;
   @btn-disable-bg: #132f47;
   @table-thead-bg: #171717;
@@ -28,6 +29,8 @@
       border-color: @border-color;
     }
   }
+
+  .placeholder(@input-placeholder-color);
 
   .bg-primary {
     background-color: @component-background;
@@ -109,6 +112,9 @@
     border-color: @border-color;
     &:hover {
       border-color: @primary-color;
+    }
+    &::placeholder {
+      color: @input-placeholder-color;
     }
   }
 
