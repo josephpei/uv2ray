@@ -61,8 +61,8 @@ export default {
       const path = openDialog({
         properties: ['openDirectory'],
       })
-      if (path && path.length) {
-        this.form.v2rayPath = path[0]
+      if (path && path.filePaths.length) {
+        this.form.v2rayPath = path.filePaths[0]
         this.$refs.form.validate(valid => {
           if (valid) {
             this.setup()
