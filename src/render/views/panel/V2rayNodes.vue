@@ -298,6 +298,12 @@ export default {
 
 .panel-nodes
   width 12.5rem
+  .ivu-dropdown-btn-trigger
+    width 28px
+    padding-left 4px
+    padding-right @padding-left
+    border-top-left-radius 0
+    border-bottom-left-radius 0
   .empty-tree
     display flex
     justify-content center
