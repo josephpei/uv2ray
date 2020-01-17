@@ -37,11 +37,13 @@ autoUpdater
 export function versionCheck (oldVersion, newVersion) {
   const oldArr = oldVersion.split('-')
   const newArr = newVersion.split('-')
+  const oldVer = oldArr[0].split('.')
+  const newVer = newArr[0].split('.')
   // 0.11.1 -> 1101
   // 0.9.2 -> 902
   // 1.1.2 -> 10102
-  const oldVersionCount = +oldArr[0] * 10000 + +oldArr[1] * 100 + +oldArr[2]
-  const newVersionCount = +newArr[0] * 10000 + +newArr[1] * 100 + +newArr[2]
+  const oldVersionCount = +oldVer[0] * 10000 + +oldVer[1] * 100 + +oldVer[2]
+  const newVersionCount = +newVer[0] * 10000 + +newVer[1] * 100 + +newVer[2]
   // old vs new
   // 0.1.0 vs 0.1.1
   if (newVersionCount > oldVersionCount) {
@@ -64,7 +66,7 @@ export function versionCheck (oldVersion, newVersion) {
 // 检查更新
 export function checkUpdate (force = false) {
   if (isLinux && !/\.AppImage&/.test(exePath)) {
-    request('https://raw.githubusercontent.com/josephpei/ussr/master/package.json').then(data => {
+    request('https://raw.githubusercontent.com/josephpei/uv2ray/master/package.json').then(data => {
       const remotePkg = JSON.parse(data)
       const currentVersion = app.getVersion()
       const isOutdated = versionCheck(currentVersion, remotePkg.version)
