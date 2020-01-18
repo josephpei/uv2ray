@@ -455,7 +455,7 @@ export function v2rayConfigHandler (appConfig, v2rayConfig, configFile) {
             port: parseInt(v2rayConfig.port),
             users: [{
               id: v2rayConfig.uid,
-              alterId: v2rayConfig.aid,
+              alterId: parseInt(v2rayConfig.aid),
               email: "t@t.tt",
               security: 'auto',
             }],
