@@ -3,6 +3,7 @@
   "version": "0.1.7",
   "private": true,
   "author": "Joseph Pei <josephpei@gmail.com>",
+  "license": "MIT",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
