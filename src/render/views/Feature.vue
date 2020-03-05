@@ -3,17 +3,17 @@
     <h1>Electron V2ray 客户端</h1>
     <Row type="flex" :gutter="24" class="mt-64">
       <i-col class="col flex flex-column flex-ai-center flex-jc-center">
-        <icon-cross />
+        <IconCross />
         <b class="font-18 my-1">跨平台</b>
         <p>支持Windows、MacOs、Linux系统</p>
       </i-col>
       <i-col class="col flex flex-column flex-ai-center flex-jc-center">
-        <icon-functions />
+        <IconFunctions />
         <b class="font-18 my-1">功能齐全</b>
         <p>支持多种实用功能</p>
       </i-col>
       <i-col class="col flex flex-column flex-ai-center flex-jc-center">
-        <icon-open />
+        <IconOpen />
         <b class="font-18 my-1">开源</b>
         <p>v2ray和uv2ray源代码均开放</p>
       </i-col>
