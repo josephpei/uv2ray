@@ -40,7 +40,7 @@
       size="small"
       :loading="loading"
       no-data-text="暂无订阅服务器"
-      height="312"
+      height="280"
       @on-selection-change="selectRows"
       @on-row-dblclick="onRowDBClick"
     ></Table>

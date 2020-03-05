@@ -16,11 +16,11 @@ module.exports = {
       .end()
     config.resolve.alias.set('@', path.join(__dirname, './src/render'))
 
-    const svgRule = config.module.rule('svg')
-    svgRule.uses.clear()
-    svgRule
-      .use('vue-svg-loader')
-      .loader('vue-svg-loader')
+    // const svgRule = config.module.rule('svg')
+    // svgRule.uses.clear()
+    // svgRule
+    //   .use('vue-svg-loader')
+    //   .loader('vue-svg-loader')
   },
   pluginOptions: {
     electronBuilder: {

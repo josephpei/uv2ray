@@ -69,7 +69,10 @@
   }
 
   .ivu-btn-icon-copy {
-    background: @component-background;
+    display: inline-block;
+    padding: 5px 15px 6px;
+    border-radius: 4px;
+    background-color: @component-background;
     border-color: @border-color;
     &:hover {
       background-color: tint(@component-background, 20%);
@@ -88,12 +91,32 @@
     color: @text-color;
   }
 
+  .ivu-checkbox {
+    &-inner {
+      border-color: @border-color;
+      background-color: @context-background;
+    }
+  }
+
+  .ivu-checkbox-checked {
+    .ivu-checkbox-inner {
+      border-color: @border-color;
+      background-color: @primaryColor;
+    }
+  }
+
   .ivu-input-number {
     border-color: @border-color;
+    background-color: @component-background;
 
     &-input {
       background-color: @component-background;
       color: @text-color;
+    }
+
+    &-handler-wrap {
+      border-left: 1px solid @component-background;
+      background: @component-background;
     }
 
     &-handler-up {
@@ -169,6 +192,15 @@
     }
   }
 
+  .ivu-tabs {
+    &-ink-bar {
+      background-color: @primary-color;
+    }
+    &-bar {
+      border-bottom: 1px solid @border-color;
+    }
+  }
+
   .ivu-table {
     background-color: @component-background;
     border-color: @border-color;
@@ -180,6 +212,15 @@
     td {
       background-color: @component-background;
       border-color: @border-color;
+    }
+    &-wrapper {
+      border: 1px solid @border-color;
+    }
+    &:before {
+      background-color: @component-background;
+    }
+    &:after {
+      background-color: @component-background;
     }
     &-body {
       tr:nth-child(2n) {
