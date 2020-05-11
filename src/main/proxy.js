@@ -35,6 +35,38 @@ function runCommand (command) {
   }
 }
 
+function getLinuxDesktop () {
+  let currentDesktop
+  const xdgDesktop = execSync('echo $XDG_CURRENT_DESKTOP').toString().trim()
+  if (/gnome$/i.test(xdgDesktop)) {
+    currentDesktop = 'gnome'
+  } else if (/cinnamon$/i.test(xdgDesktop)) {
+    currentDesktop = 'cinnamon'
+  } else if (/kde$/i.test(xdgDesktop)) {
+    currentDesktop = 'kde'
+  } else if (/xfce$/i.test(xdgDesktop)) {
+    currentDesktop = 'xfce'
+  }
+  return currentDesktop
+}
+
+export function getLinuxTheme () {
+  let currentTheme
+  const currentDesktop = getLinuxDesktop()
+  console.log(currentDesktop)
+  if (currentDesktop === 'gnome') {
+    currentTheme = execSync('dconf read /org/gnome/desktop/interface/gtk-theme').toString().trim()
+  } else if (currentDesktop === 'cinnamon') {
+    currentTheme = execSync('dconf read /org/cinnamon/desktop/interface/gtk-theme').toString().trim()
+  } else if (currentDesktop === 'kde') {
+    currentTheme = execSync('kreadconfig5 --group "KDE" --key "ColorScheme"').toString().trim()
+  } else if (currentDesktop === 'xfce') {
+    currentTheme = execSync('xfconf-query -lvc xsettings -p /Net/ThemeName').toString().trim()
+  }
+  console.log(currentTheme)
+  return currentTheme
+}
+
 /**
  * 设置代理为空, force表示强制设置，否则根据isProxyChanged字段判断是否需要设置为空
  */

@@ -18,7 +18,6 @@ ipcRenderer
   })
   .on(events.EVENT_APP_SCAN_DESKTOP, () => {
     // 扫描二维码
-    console.log('fuck fuck fuck')
     scanQrcode((e, result) => {
       if (e) {
         showNotification('未找到相关二维码', '扫码失败')

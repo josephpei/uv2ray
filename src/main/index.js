@@ -9,13 +9,13 @@ import './ipc'
 import { stopPacServer } from './pac'
 import { stopHttpProxyServer } from './http-proxy'
 import { stop as stopCommand, runWithConfig } from './client'
-import { setProxyToNone } from './proxy'
+import { setProxyToNone, getLinuxTheme } from './proxy'
 import { createWindow, showWindow, getWindow, destroyWindow, sendData } from './window'
 import { startTask, stopTask } from './subscribe'
 import logger from './logger'
 import { clearShortcuts } from './shortcut'
 import { loadConfigsFromString } from '../shared/v2ray'
-import { isMac, isWin } from '../shared/env'
+import { isMac, isWin, isLinux } from '../shared/env'
 import { EVENT_APP_MAC_DARKMODE } from '../shared/events'
 
 const singleLock = app.requestSingleInstanceLock()
@@ -31,12 +31,14 @@ if (!singleLock) {
     _window.focus()
   }
   // 如果是通过链接打开的应用，则添加记录
-  // if (argv[1]) {
-  //   const configs = loadConfigsFromString(argv[1])
-  //   if (configs.length) {
-  //     addConfigs(configs)
-  //   }
-  // }
+  app.on('second-instance', (e, argv, workingDirectory) => {
+    if (argv[1]) {
+      const configs = loadConfigsFromString(argv[1])
+      if (configs.length) {
+        addConfigs(configs)
+      }
+    }
+  })
 }
 
 bootstrap.then(() => {
@@ -55,6 +57,16 @@ bootstrap.then(() => {
         sendData(EVENT_APP_MAC_DARKMODE, systemPreferences.isDarkMode())
       }
     })
+  }
+
+  if (isLinux) {
+    const desktopTheme = getLinuxTheme()
+    if (/dark/i.test(desktopTheme)) {
+      const win = getWindow()
+      if (win) {
+        sendData(EVENT_APP_MAC_DARKMODE, true)
+      }
+    }
   }
 
   if (process.env.NODE_ENV !== 'development') {
