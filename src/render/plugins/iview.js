@@ -1,7 +1,7 @@
 import Vue from 'vue'
-import iView from 'iview'
+import ViewUI from 'view-design'
 import '../assets/theme.less'
 
-Vue.use(iView)
+Vue.use(ViewUI)
 
-//import 'iview/dist/styles/iview.css'
+//import 'view-design/dist/styles/iview.css'

@@ -56,7 +56,7 @@
 <script>
 import { clipboard, nativeImage } from 'electron'
 import qr from 'qr-image'
-import clickoutside from 'iview/src/directives/clickoutside'
+import clickoutside from 'view-design/src/directives/clickoutside'
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 import { hideWindow } from '../../ipc'
 import { clone, merge } from '../../../shared/utils'

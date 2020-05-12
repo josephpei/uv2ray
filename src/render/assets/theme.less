@@ -1,4 +1,4 @@
-@import '~iview/src/styles/index';
+@import '~view-design/src/styles/index';
 
 .themify(@primaryColor: #2d8cf0) {
   @primary-color: #296eb3;
@@ -17,6 +17,10 @@
   @text-color: #fff;
   @selected-color: fade(@primary-color, 90%);
   @tooltip-color: #fff;
+
+  body {
+    font-size: @font-size-small;
+  }
 
   // :not([class*="-text"]) {
   //     background-color: @body-background;
@@ -88,6 +92,7 @@
   }
 
   .ivu-form-item-label {
+    font-size: @font-size-small;
     color: @text-color;
   }
 
