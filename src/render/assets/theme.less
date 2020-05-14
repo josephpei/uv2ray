@@ -21,6 +21,24 @@
   body {
     font-size: @font-size-small;
   }
+  .ivu-form-item-label,
+  .ivu-input, .ivu-input-number,
+  .ivu-checkbox,
+  .ivu-tree-title {
+    font-size: @font-size-small;
+  }
+  .ivu-select {
+    font-size: @font-size-small;
+    &-item {
+      font-size: @font-size-small;
+    }
+    &-selection {
+      font-size: @font-size-small;
+      .ivu-select-placeholder {
+        font-size: @font-size-small;
+      }
+    }
+  }
 
   // :not([class*="-text"]) {
   //     background-color: @body-background;
@@ -92,7 +110,6 @@
   }
 
   .ivu-form-item-label {
-    font-size: @font-size-small;
     color: @text-color;
   }
 
@@ -254,7 +271,22 @@
 }
 
 .light {
-  .ivu-form-item-label {
+  .ivu-form-item-label,
+  .ivu-input, .ivu-input-number,
+  .ivu-checkbox,
+  .ivu-tree-title {
     font-size: @font-size-small;
+  }
+  .ivu-select {
+    font-size: @font-size-small;
+    &-item {
+      font-size: @font-size-small;
+    }
+    &-selection {
+      font-size: @font-size-small;
+      .ivu-select-placeholder {
+        font-size: @font-size-small;
+      }
+    }
   }
 }
