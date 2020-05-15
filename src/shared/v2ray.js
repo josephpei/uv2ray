@@ -34,13 +34,14 @@ export default class Config {
     this.tls = ''
     this.ps = ''
     this.group = ''
+    this.emoji = ''
     merge(this, config)
     this.id = generateID()
     this.enable = true
     Object.defineProperty(this, 'remarks_base64', {
       enumerable: true,
       get () {
-        return this.ps ? encode(this.ps) : ''
+        return this.ps ? encode(`{this.emoji}{this.ps}`) : ''
       },
       set () {},
     })

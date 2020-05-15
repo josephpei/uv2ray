@@ -10,6 +10,7 @@ import {
   isConfigEqual,
   somePromise,
 } from '../shared/utils'
+import emojies from '../shared/emoji'
 import Config from '../shared/v2ray'
 import { syncConfig } from './ipc'
 import {
@@ -189,6 +190,20 @@ export default new Vuex.Store({
       state.tlses = tlses
       ls.set(STORE_KEY_V2RAY_TLSES, JSON.stringify(tlses))
     },
+    // 添加国旗 emoji
+    addCountryEmoji (state) {
+      state.appConfig.configs.forEach(config => {
+        if (config.emoji !== '')
+          return
+        for (let e of emojies) {
+          if (e.pattern.test(config.ps)) {
+            config.emoji = e.emoji
+            break
+          }
+        }
+      })
+      syncConfig(state.appConfig)
+    },
   },
   actions: {
     initConfig ({ commit }, { config, meta }) {
@@ -239,7 +254,7 @@ export default new Vuex.Store({
       }
     },
     // 更新所有订阅服务器
-    updateSubscribes ({ state, dispatch }, updateSubscribes) {
+    updateSubscribes ({ state, dispatch, commit }, updateSubscribes) {
       // 要更新的订阅服务器
       updateSubscribes = updateSubscribes || state.appConfig.serverSubscribes
       // 累计更新节点数
@@ -290,6 +305,7 @@ export default new Vuex.Store({
               } else {
                   console.log('订阅节点并未发生变更')
               }
+              commit('addCountryEmoji')
             }
           })
         })

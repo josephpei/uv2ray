@@ -25,5 +25,46 @@ yarn electron:serve
 yarn electron:build
 ```
 
+## Country Emoji
+
+Ubuntu `sudo apt install fonts-noto-color-emoji`
+
+Add file `$HOME/.config/fontconfig/conf.d/99-emoji.conf`
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+<fontconfig>
+  <match>
+    <test name="family"><string>sans-serif</string></test>
+    <edit name="family" mode="append" binding="strong">
+      <string>Bitstream Vera Serif</string>
+      <string>Noto Color Emoji</string>
+    </edit>
+  </match>
+
+  <!-- Add emoji generic family -->
+  <alias binding="strong">
+    <family>emoji</family>
+    <default><family>Noto Color Emoji</family></default>
+  </alias>
+
+  <!-- Aliases for the other emoji fonts -->
+  <alias binding="strong">
+    <family>Apple Color Emoji</family>
+    <prefer><family>Noto Color Emoji</family></prefer>
+  </alias>
+  <alias binding="strong">
+    <family>Segoe UI Emoji</family>
+    <prefer><family>Noto Color Emoji</family></prefer>
+  </alias>
+  <alias binding="strong">
+    <family>Emoji One</family>
+    <prefer><family>Noto Color Emoji</family></prefer>
+  </alias>
+</fontconfig>
+
+```
+
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).

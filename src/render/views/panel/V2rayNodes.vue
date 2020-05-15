@@ -157,7 +157,7 @@ export default {
     // 复制节点并带上title和选中参数
     cloneConfig (config, selected) {
       return {
-        title: `${config.ps || config.add} (${config.add}:${config.port})`,
+        title: `${config.emoji || ''}${config.ps || config.add} (${config.add}:${config.port})`,
         selected,
         ...config,
       }
