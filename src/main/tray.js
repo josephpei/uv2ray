@@ -100,13 +100,13 @@ function generateMenus (appConfig) {
         {
           label: '项目主页',
           click: () => {
-            handler.openURL('https://github.com/josephpei/ussr')
+            handler.openURL('https://github.com/josephpei/uv2ray')
           },
         },
         {
           label: 'Bug反馈',
           click: () => {
-            handler.openURL('https://github.com/josephpei/ussr/issues')
+            handler.openURL('https://github.com/josephpei/uv2ray/issues')
           },
         },
         {

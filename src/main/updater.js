@@ -72,7 +72,7 @@ export function checkUpdate (force = false) {
       const isOutdated = versionCheck(currentVersion, remotePkg.version)
       if (isOutdated) {
         showNotification(`最新版本为 v${remotePkg.version}，点击前往下载。`, '通知', () => {
-          shell.openExternal('https://github.com/josephpei/ussr/releases')
+          shell.openExternal('https://github.com/josephpei/uv2ray/releases')
         })
       } else if (force) {
         showNotification('当前已是最新版，无需更新')
