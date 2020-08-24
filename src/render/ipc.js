@@ -41,7 +41,7 @@ ipcRenderer
     // 弹框显示main进程报错内容
     alert(err)
   })
-  .on(events.EVENT_SUBSCRIBE_UPDATE_MAIN, e => {
+  .on(events.EVENT_SUBSCRIBE_UPDATE_MAIN, () => {
     // 更新订阅服务器
     store
       .dispatch('updateSubscribes')
