@@ -29,7 +29,7 @@
     <div class="link flex flex-ai-center mt-1">
       <span class="tip">vmess链接&nbsp;</span>
       <i-input class="flex-1" ref="input" :value="editingConfigLink" readonly style="width:auto">
-        <template slot="append">
+        <template v-slot:append>
           <Tooltip :content="copyTooltip" placement="top-end" :delay="300">
             <Button
               class="ivu-btn-icon-copy"
