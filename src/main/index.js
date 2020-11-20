@@ -1,4 +1,4 @@
-import { app, powerMonitor, systemPreferences } from 'electron'
+import { app, powerMonitor, systemPreferences, nativeTheme } from 'electron'
 import AutoLaunch from 'auto-launch'
 import bootstrap from './bootstrap'
 import { isQuiting, appConfig$, currentConfig, addConfigs } from './data'
@@ -47,14 +47,14 @@ bootstrap.then(() => {
     app.setAsDefaultProtocolClient('vmess')
   }
 
-  if (isMac && systemPreferences.isDarkMode()) {
-    sendData(EVENT_APP_MAC_DARKMODE, systemPreferences.isDarkMode())
+  if (isMac && nativeTheme.shouldUseDarkColors) {
+    sendData(EVENT_APP_MAC_DARKMODE, nativeTheme.shouldUseDarkColors)
   }
   if (isMac) {
     systemPreferences.subscribeNotification('AppleInterfaceThemeChangedNotification', async () => {
       const win = getWindow()
       if (win) {
-        sendData(EVENT_APP_MAC_DARKMODE, systemPreferences.isDarkMode())
+        sendData(EVENT_APP_MAC_DARKMODE, nativeTheme.shouldUseDarkColors)
       }
     })
   }
