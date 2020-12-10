@@ -1,6 +1,6 @@
 {
   "name": "uv2ray",
-  "version": "0.1.9",
+  "version": "0.2.0",
   "private": true,
   "author": "Joseph Pei <josephpei@gmail.com>",
   "scripts": {
